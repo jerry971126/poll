@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import poll_list,PollList,PollView, PollVote, PollCreate,PollEdit
+from .views import poll_list,PollList,PollView, PollVote, PollCreate,PollEdit,OptionCreate,OptionEdit,PollDelete,OptionDelete
 urlpatterns =[
          #poll路徑請求交給後面的處理
     path("",PollList.as_view(),name='poll_list'),
@@ -7,5 +7,8 @@ urlpatterns =[
     path("<int:oid>/vote/",PollVote.as_view(), name ='poll_vote'),
     path("add",PollCreate.as_view(), name='poll_create'),
     path('<int:pk>/edit',PollEdit.as_view(),name='poll_edit'),
-    path('<int:pid>/add',OptionCreate.as_View(),name="option_create")
+    path('<int:pid>/add',OptionCreate.as_view(),name="option_create"),
+    path('<int:oid/modify',OptionEdit.as_view(),name='option_edit'),
+    path("<int:pk>/delete",PollDelete.as_view(),name='poll_delete'),
+    path('<int:pk>/remove',OptionDelete.as_view(),name='option_delete'),
 ]
