@@ -6,6 +6,18 @@
     <title>{%block title%}Document{% endblock%}</title>
 </head>
 <body>
+    <div class="container">
+        <div>
+            {% if not user.is_authenticated%}
+            <a href="{% url 'login'%}">登入</a>
+            {% else %}
+            <form action="{% url 'logout'%}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="登出">
+            </form>
+            {% endif %}
+        </div>
+    </div>
     {%block main%}{% endblock%}
     <div>20629 楊弘頡</div>
 </body>

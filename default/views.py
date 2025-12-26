@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import Poll,Option     #從models引用
 from django.views.generic import ListView,DetailView , RedirectView,CreateView,UpdateView,DeleteView
 from django.urls import reverse, reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 def poll_list(req):
@@ -29,7 +30,7 @@ class PollVote(RedirectView):
         #return f"/poll/{option.poll_id}"
         return reverse("poll_view",args=[option.poll_id])
         #return reverse("poll_view",kwargs=['pk':option.poll_id])
-class PollCreate(CreateView):
+class PollCreate(LoginRequiredMixin,CreateView):
     model = Poll
     fields = "__all__"#["subject",'desc']
     success_url =reverse_lazy('poll_list')
